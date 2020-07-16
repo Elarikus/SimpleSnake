@@ -75,12 +75,31 @@ public class Snake {
 			newHead.add(0, coordonee0);
 			newHead.add(1, coordonee1);
 			
-			//Verification mangeage fruit
+			
+			int testCase = getCaseType(newHead, width, height, snake, fruit);
+			System.out.println("TestCase : " + testCase);
+			switch(testCase) {
+				case 1 :
+				case 3 :
+					loose= true;
+					break;
+				case 2 :
+					snake.add(snake.get(snake.size()- 1));
+					
+					creationfruit(rand, width, height, fruit, snake);
+					break;
+				default:
+					
+			}
+			
+			
+			/*Verification mangeage fruit
 			if(newHead.get(0) == fruit.get(0) && newHead.get(1) == fruit.get(1)) {
 				snake.add(snake.get(snake.size()- 1));
 				
 				creationfruit(rand, width, height, fruit, snake);
 			}
+			*/
 			
 				
 			//Deplacement du serpent
@@ -184,5 +203,32 @@ public class Snake {
 		
 
 		System.out.println(laneBorder);
+	}
+	
+	
+	/* 0= no problem
+	 * 1= mur
+	 * 2= apple
+	 * 3= snake
+	 */
+	public static int getCaseType(ArrayList<Integer> location, int width, int height, ArrayList<ArrayList<Integer>> snake, ArrayList<Integer> apple) {
+		
+		int x = location.get(0);
+		int y = location.get(1);
+		
+		if(x >= 0 && x < width && y >= 0 && y < height) {
+			if(x == apple.get(0) && y == apple.get(1)) {
+				return 2;
+			}
+			
+			for(int i = 0 ; i < snake.size() ; i++) {
+				if(snake.get(i).get(0) == x && snake.get(i).get(1) == y) {
+					return 3;
+				}
+			}
+			return 0;
+		}
+		
+		return 1;
 	}
 }
