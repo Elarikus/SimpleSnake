@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Snake {
+public class SnakeArchive {
 
 	
 	public static void main(String[] args) {
